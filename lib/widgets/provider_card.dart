@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/service_provider.dart';
 import '../pages/service_detail_page.dart';
+import '../main.dart';
 
 class ProviderCard extends StatelessWidget {
   final ServiceProvider provider;
@@ -9,6 +10,7 @@ class ProviderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = themeNotifier.value == ThemeMode.dark;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 2,
