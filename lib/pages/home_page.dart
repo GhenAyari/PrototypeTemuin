@@ -9,6 +9,7 @@ import 'profile_page.dart';
 import 'emergency_order_page.dart';
 import 'search_page.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -84,8 +85,7 @@ class _HomePageState extends State<HomePage> {
               // PENTING: Kamu harus mengirim warna dinamis ke dalam fungsi-fungsi builder ini
               _buildHeroText(textDark, primaryPurple),
               const SizedBox(height: 30),
-<<<<<<< HEAD
-              _buildSearchBar(),
+              _buildSearchBar(lightPurple),
               const SizedBox(height: 20),
               GestureDetector(
   onTap: () {
@@ -150,12 +150,7 @@ class _HomePageState extends State<HomePage> {
     ),
   ),
 ),
-              _buildSectionTitle('EXPLORE', 'Specialized Talent'),
-=======
-              _buildSearchBar(lightPurple),
-              const SizedBox(height: 40),
               _buildSectionTitle('EXPLORE', 'Specialized Talent', textDark, primaryPurple),
->>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
               const SizedBox(height: 16),
               _buildSpecializedTalent(lightPurple, primaryPurple, textGray),
               const SizedBox(height: 40),
@@ -185,7 +180,6 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
 
-<<<<<<< HEAD
           // TAMBAHKAN KODE INI DI SINI
           if (index == 1) {
       Navigator.push(
@@ -193,8 +187,6 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(builder: (context) => const SearchPage()),
       );
     }
-=======
->>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
           if (index == 2) {
             Navigator.push(
               context,

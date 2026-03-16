@@ -2,13 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-<<<<<<< HEAD
 import 'home_page.dart'; // Untuk navigasi bottom bar
 import 'chat_page.dart';
-=======
-import 'home_page.dart';
 import 'profile_page.dart';
->>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({Key? key}) : super(key: key);
@@ -221,7 +217,6 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             ],
           ),
           const SizedBox(height: 24),
-<<<<<<< HEAD
           
           // Join Session Button
 Row(
@@ -246,23 +241,6 @@ Row(
           ),
           elevation: 0,
         ),
-=======
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
-              label: Text('Join Session', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryPurple,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                elevation: 0,
-              ),
-            ),
-          )
-        ],
->>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
       ),
     ),
     const SizedBox(width: 12),
