@@ -1,9 +1,8 @@
-// lib/pages/booking_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/service_provider.dart';
-import 'home_page.dart'; // Untuk navigasi kembali ke home setelah sukses
+import 'home_page.dart'; 
+
 import 'order_confirmed_page.dart';
 
 class BookingPage extends StatefulWidget {
@@ -16,7 +15,7 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
-  // Warna Utama
+
   final Color bgPurple = const Color(0xFFFDFBFF);
   final Color primaryPurple = const Color(0xFF533DEC);
   final Color lightPurple = const Color(0xFFEDE8FF);
@@ -25,14 +24,15 @@ class _BookingPageState extends State<BookingPage> {
   final Color greenAccent = const Color(0xFF0F765E);
   final Color lightGreen = const Color(0xFF90F0D6);
 
-  // State untuk pilihan interaktif (Prototype)
-  int _selectedDateIndex = 4; // Default pilih tanggal ke-5 (angka 2)
-  int _selectedTimeIndex = 1; // Default pilih jam ke-2 (10:30 AM)
-  int _selectedPayment = 0; // 0: Card, 1: PayPal
+  int _selectedDateIndex = 4; 
+
+  int _selectedTimeIndex = 1; 
+
+  int _selectedPayment = 0; 
 
   @override
   Widget build(BuildContext context) {
-    // Perhitungan Harga Dinamis
+
     double serviceFee = widget.provider.price.toDouble();
     double bookingCharge = 4.50;
     double discount = 10.00;
@@ -110,8 +110,6 @@ class _BookingPageState extends State<BookingPage> {
       ),
     );
   }
-
-  // --- WIDGET BUILDERS ---
 
   Widget _buildStepper() {
     return Row(
@@ -204,13 +202,14 @@ class _BookingPageState extends State<BookingPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar Header (Bisa diganti dengan ilustrasi dari desain)
+
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Container(
               height: 120,
               width: double.infinity,
-              color: const Color(0xFF1E3240), // Warna gelap ilustrasi
+              color: const Color(0xFF1E3240), 
+
               child: Image.network(
                 widget.provider.avatarUrl,
                 fit: BoxFit.cover,
@@ -311,7 +310,7 @@ class _BookingPageState extends State<BookingPage> {
   }
 
   Widget _buildDateSelector() {
-    // Dummy Data Tanggal untuk menyamakan dengan desain
+
     List<Map<String, String>> dates = [
       {'day': 'MO', 'date': '28'},
       {'day': 'TU', 'date': '29'},
@@ -351,7 +350,7 @@ class _BookingPageState extends State<BookingPage> {
             children: List.generate(dates.length, (index) {
               bool isSelected = _selectedDateIndex == index;
               bool isPast =
-                  index < 3; // Contoh styling abu-abu untuk tanggal lalu
+                  index < 3; 
 
               return GestureDetector(
                 onTap: () => setState(() => _selectedDateIndex = index),
@@ -394,7 +393,8 @@ class _BookingPageState extends State<BookingPage> {
         return GestureDetector(
           onTap: () => setState(() => _selectedTimeIndex = index),
           child: Container(
-            width: (MediaQuery.of(context).size.width - 60) / 2, // 2 Kolom
+            width: (MediaQuery.of(context).size.width - 60) / 2, 
+
             padding: const EdgeInsets.symmetric(vertical: 14),
             decoration: BoxDecoration(
               color: isSelected ? primaryPurple : lightPurple,
@@ -616,14 +616,16 @@ class _BookingPageState extends State<BookingPage> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              // HAPUS pemanggilan _showSuccessDialog() dan ganti jadi ini:
+
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => OrderConfirmedPage(
-                      provider: widget.provider, // Kirim data providernya
-                      totalAmount: total, // Kirim total tagihannya
+                      provider: widget.provider, 
+
+                      totalAmount: total, 
+
                     ),
                   ),
                 );
@@ -863,7 +865,6 @@ class _BookingPageState extends State<BookingPage> {
     );
   }
 
-  // --- FUNGSI DIALOG SUKSES ---
   void _showSuccessDialog() {
     showDialog(
       context: context,
@@ -913,7 +914,7 @@ class _BookingPageState extends State<BookingPage> {
                   ),
                 ),
                 onPressed: () {
-                  // Kembali ke Home Page dan reset stack navigasi
+
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => const HomePage()),
                     (route) => false,
@@ -935,3 +936,4 @@ class _BookingPageState extends State<BookingPage> {
     );
   }
 }
+

@@ -13,7 +13,7 @@ class ChatPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(child: Container(color: Colors.grey[100])), // Area pesan
+          Expanded(child: Container(color: Colors.grey[100])), 
           _buildMessageInput(),
         ],
       ),
@@ -26,7 +26,6 @@ class ChatPage extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Colors.grey.shade300))),
       child: Row(
         children: [
-          // Tombol Kirim Media (Gambar/Video)
           IconButton(
             icon: const Icon(Icons.add_a_photo_outlined, color: Color(0xFF0D47A1)),
             onPressed: () { /* Fungsi kirim gambar nanti di sini */ },

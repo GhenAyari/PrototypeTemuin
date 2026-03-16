@@ -1,14 +1,12 @@
-// lib/pages/home_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:temuin/main.dart'; // Pastikan ini benar (mengarah ke file main.dart yang berisi themeNotifier)
+import 'package:temuin/main.dart'; 
+
 import 'package:temuin/pages/service_list_page.dart';
 import 'my_orders_page.dart';
 import 'profile_page.dart';
 import 'emergency_order_page.dart';
 import 'search_page.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,19 +18,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  // HAPUS SEMUA DEKLARASI WARNA DI SINI
-
   @override
   Widget build(BuildContext context) {
-    // 1. PINDAHKAN SEMUA VARIABEL WARNA KE DALAM FUNGSI BUILD
-    // --- AMBIL WARNA OTOMATIS DARI main.dart ---
+
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     final Color bgPurple = Theme.of(context).scaffoldBackgroundColor;
     final Color primaryPurple = Theme.of(context).primaryColor;
     final Color lightPurple = Theme.of(context).cardColor;
-    
-    // Pakai '??' (fallback) supaya Flutter gak protes soal Null Safety
+
     final Color textDark = Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1A1A1A);
     final Color textGray = Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF8A8A8A);
 
@@ -50,7 +44,8 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'Temuin',
           style: GoogleFonts.poppins(
-            color: textDark, // Menggunakan warna dinamis
+            color: textDark, 
+
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
@@ -62,9 +57,9 @@ class _HomePageState extends State<HomePage> {
               color: primaryPurple,
             ),
             onPressed: () {
-              // Ganti nilai notifier
+
               themeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
-              // Panggil setState agar fungsi build (dan perhitungan warna) dijalankan ulang
+
               setState(() {}); 
             },
           ),
@@ -74,7 +69,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      // Konten utama yang bisa di-scroll
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -82,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              // PENTING: Kamu harus mengirim warna dinamis ke dalam fungsi-fungsi builder ini
+
               _buildHeroText(textDark, primaryPurple),
               const SizedBox(height: 30),
               _buildSearchBar(lightPurple),
@@ -97,7 +92,7 @@ class _HomePageState extends State<HomePage> {
   child: Container(
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      // Pakai gradasi dari ungu ke pink tua supaya eye-catching tapi tetap estetik
+
       gradient: const LinearGradient(
         colors: [Color(0xFF735BF2), Color(0xFF9B51E0)],
         begin: Alignment.topLeft,
@@ -167,12 +162,13 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 16),
               _buildPopularServices(textDark, textGray),
-              const SizedBox(height: 40), // Spacing bawah
+              const SizedBox(height: 40), 
+
             ],
           ),
         ),
       ),
-      // Bottom Navigation Bar
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -180,7 +176,6 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
 
-          // TAMBAHKAN KODE INI DI SINI
           if (index == 1) {
       Navigator.push(
         context,
@@ -200,7 +195,8 @@ class _HomePageState extends State<HomePage> {
           }
         },
         type: BottomNavigationBarType.fixed,
-        backgroundColor: bgPurple, // Ikuti warna background Scaffold
+        backgroundColor: bgPurple, 
+
         selectedItemColor: primaryPurple,
         unselectedItemColor: textGray,
         showUnselectedLabels: true,
@@ -224,9 +220,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // --- WIDGET BUILDERS UNTUK SETIAP BAGIAN ---
-  // Parameter fungsi telah diperbarui untuk menerima warna dinamis
 
   Widget _buildHeroText(Color textDark, Color primaryPurple) {
     return RichText(
@@ -413,11 +406,12 @@ class _HomePageState extends State<HomePage> {
   Widget _buildFeaturedProviders(Color lightPurple, Color primaryPurple, Color textGray, Color textDark) {
     return Column(
       children: [
-        // Card 1: Marcus Thorne (Top Rated)
+
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: lightPurple, // Diubah agar mengikuti tema
+            color: lightPurple, 
+
             borderRadius: BorderRadius.circular(32),
             boxShadow: [
               BoxShadow(
@@ -457,7 +451,8 @@ class _HomePageState extends State<HomePage> {
                         style: GoogleFonts.poppins(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
-                          color: Colors.teal.shade900, // Tambahkan warna agar kontras di dark mode
+                          color: Colors.teal.shade900, 
+
                         ),
                       ),
                     ),
@@ -542,7 +537,6 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(height: 16),
 
-        // Card 2: Elena Rodriguez (Medium Card)
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -624,7 +618,8 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: textDark == Colors.white ? const Color(0xFF2C2C2C) : Colors.white, // Adaptasi warna tombol
+                    backgroundColor: textDark == Colors.white ? const Color(0xFF2C2C2C) : Colors.white, 
+
                     foregroundColor: textDark == Colors.white ? Colors.white : const Color(0xFF1A1A1A),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -643,7 +638,6 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(height: 16),
 
-        // Card 3 & 4: Small List Tiles
         _buildSmallProviderCard(
           'Julian Vax',
           'Cloud Consultant',
@@ -665,7 +659,6 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(height: 16),
 
-        // Become a Provider Button
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -733,7 +726,8 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: lightPurple, // Adaptasi warna card
+        color: lightPurple, 
+
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -847,7 +841,8 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1,
-                    color: Colors.black, // Tetap hitam agar kontras dengan background putih transparan
+                    color: Colors.black, 
+
                   ),
                 ),
               ),

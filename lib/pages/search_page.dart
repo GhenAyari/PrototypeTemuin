@@ -9,7 +9,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  // Warna dari tema Temuin
+
   final Color primaryPurple = const Color(0xFF735BF2);
   final Color bgPurple = const Color(0xFFFBFaff);
 
@@ -22,7 +22,7 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 0,
         title: Text('Find Services', style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.bold)),
         actions: [
-          // TOMBOL FILTER DI POJOK KANAN ATAS
+
           IconButton(
             icon: Icon(Icons.tune, color: primaryPurple),
             onPressed: () => _showFilterModal(context),
@@ -63,7 +63,6 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  // MODAL FILTER (KATEGORI, HARGA, RATING, PENGALAMAN)
   void _showFilterModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -106,7 +105,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _filterLabel(String text) => Text(text, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14));
-  
+
   Widget _chipRow(List<String> labels) {
     return Wrap(spacing: 8, children: labels.map((l) => FilterChip(label: Text(l), onSelected: (v){})).toList());
   }

@@ -1,5 +1,3 @@
-// lib/pages/order_confirmed_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/service_provider.dart';
@@ -16,7 +14,6 @@ class OrderConfirmedPage extends StatelessWidget {
     required this.totalAmount,
   }) : super(key: key);
 
-  // Definisi Warna
   final Color bgPurple = const Color(0xFFFBFaff);
   final Color primaryPurple = const Color(0xFF533DEC);
   final Color lightPurple = const Color(0xFFEDE8FF);
@@ -57,7 +54,7 @@ class OrderConfirmedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            // Success Icon
+
             Container(
               width: 100,
               height: 100,
@@ -76,7 +73,6 @@ class OrderConfirmedPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
 
-            // Text Header
             Text(
               'Booking Confirmed!',
               style: GoogleFonts.poppins(
@@ -97,7 +93,6 @@ class OrderConfirmedPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Order ID Pill
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               decoration: BoxDecoration(
@@ -122,11 +117,9 @@ class OrderConfirmedPage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
 
-            // Service Summary Card
             _buildServiceSummaryCard(),
             const SizedBox(height: 24),
 
-            // Help & Calendar Cards
             _buildActionCard(
               Icons.help_outline,
               'Need help?',
@@ -140,12 +133,11 @@ class OrderConfirmedPage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
 
-            // Buttons
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Pindah ke halaman My Orders
+
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -176,7 +168,7 @@ class OrderConfirmedPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Kembali ke halaman awal dengan menghapus semua history tumpukan screen
+
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => const HomePage()),
                     (Route<dynamic> route) => false,
@@ -204,9 +196,10 @@ class OrderConfirmedPage extends StatelessWidget {
           ],
         ),
       ),
-      // Bottom Navigation Bar
+
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2, // Posisi aktif di tab Orders
+        currentIndex: 2, 
+
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryPurple,
         unselectedItemColor: Colors.grey.shade400,
@@ -231,8 +224,6 @@ class OrderConfirmedPage extends StatelessWidget {
       ),
     );
   }
-
-  // --- WIDGET BUILDERS ---
 
   Widget _buildServiceSummaryCard() {
     return Container(
@@ -301,13 +292,15 @@ class OrderConfirmedPage extends StatelessWidget {
             Icons.calendar_month,
             'Date',
             'October 24, 2024',
-          ), // Dummy date
+          ), 
+
           const SizedBox(height: 16),
           _buildInfoRow(
             Icons.schedule,
             'Time',
             '10:30 AM - 11:30 AM',
-          ), // Dummy time
+          ), 
+
           const SizedBox(height: 24),
           const Divider(height: 1, thickness: 1),
           const SizedBox(height: 24),
@@ -452,3 +445,4 @@ class OrderConfirmedPage extends StatelessWidget {
     );
   }
 }
+

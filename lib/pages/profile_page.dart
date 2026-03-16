@@ -1,5 +1,3 @@
-// lib/pages/profile_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_page.dart';
@@ -9,7 +7,6 @@ import 'my_orders_page.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
-  // Definisi Warna sesuai desain
   final Color bgPurple = const Color(0xFFFBFaff);
   final Color primaryPurple = const Color(0xFF533DEC);
   final Color textDark = const Color(0xFF2B2052);
@@ -42,15 +39,13 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         child: Column(
           children: [
-            // Profile Header
+
             _buildProfileHeader(),
             const SizedBox(height: 32),
-            
-            // Stats Row
+
             _buildStatsRow(),
             const SizedBox(height: 40),
-            
-            // Account Settings Section
+
             _buildSectionHeader('ACCOUNT SETTINGS'),
             const SizedBox(height: 16),
             _buildSettingsCard([
@@ -58,10 +53,9 @@ class ProfilePage extends StatelessWidget {
               _buildSettingItem(Icons.notifications_none, 'Notification Settings', Colors.teal.shade100),
               _buildSettingItem(Icons.payment, 'Payment Methods', Colors.purple.shade100),
             ]),
-            
+
             const SizedBox(height: 32),
-            
-            // Support & Legal Section
+
             _buildSectionHeader('SUPPORT & LEGAL'),
             const SizedBox(height: 16),
             _buildSettingsCard([
@@ -69,12 +63,11 @@ class ProfilePage extends StatelessWidget {
               _buildSettingItem(Icons.description_outlined, 'Terms of Service', Colors.deepPurple.shade100),
               _buildSettingItem(Icons.shield_outlined, 'Privacy Policy', Colors.blueGrey.shade100),
             ]),
-            
+
             const SizedBox(height: 40),
-            
-            // Logout Button
+
             _buildLogoutButton(context),
-            
+
             const SizedBox(height: 24),
             Text(
               'TEMUIN VERSION 2.4.0 (BUILD 108)',
@@ -84,9 +77,10 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
       ),
-      // Bottom Navigation Bar
+
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 4, // Aktif di Profile
+        currentIndex: 4, 
+
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryPurple,
         unselectedItemColor: Colors.grey.shade400,
@@ -105,8 +99,6 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-
-  // --- WIDGET BUILDERS ---
 
   Widget _buildProfileHeader() {
     return Column(

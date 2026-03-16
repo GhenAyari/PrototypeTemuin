@@ -1,7 +1,6 @@
-// lib/pages/login_page.dart
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // Impor untuk font
+import 'package:google_fonts/google_fonts.dart'; 
+
 import 'home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,19 +8,23 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Definisi Warna dari Desain
-    const primaryPurple = Color(0xFF887BF4); // Ungu cerah tombol
-    const backgroundPurple = Color(0xFFF9F7FF); // Latar belakang sangat muda
-    const inputPurpleFill = Color(0xFFF1EEFF); // Isian input
+
+    const primaryPurple = Color(0xFF887BF4); 
+
+    const backgroundPurple = Color(0xFFF9F7FF); 
+
+    const inputPurpleFill = Color(0xFFF1EEFF); 
+
     const darkText = Color(0xFF2C2C2C);
     const grayText = Color(0xFF787878);
 
     return Scaffold(
-      backgroundColor: backgroundPurple, // Latar belakang yang serasi
+      backgroundColor: backgroundPurple, 
+
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header: Temuin dan Notifikasi
+
             Padding(
               padding: const EdgeInsets.only(top: 60, left: 24, right: 24),
               child: Row(
@@ -42,8 +45,8 @@ class LoginPage extends StatelessWidget {
 
             const SizedBox(
               height: 100,
-            ), // Ruang di mana logo aslinya berada (Abaikan Logo)
-            // Judul dan Subjudul
+            ), 
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
@@ -70,14 +73,14 @@ class LoginPage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 50), // Ruang sebelum formulir
-            // Formulir Login
+            const SizedBox(height: 50), 
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Email Field
+
                   const Text(
                     'Email Address',
                     style: TextStyle(color: grayText),
@@ -103,7 +106,6 @@ class LoginPage extends StatelessWidget {
 
                   const SizedBox(height: 24),
 
-                  // Password Field
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -128,7 +130,8 @@ class LoginPage extends StatelessWidget {
                     child: const TextField(
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: '••••••••', // Titik-titik kata sandi
+                        hintText: '••••••••', 
+
                         prefixIcon: Icon(
                           Icons.lock_outline,
                           color: primaryPurple,
@@ -141,13 +144,12 @@ class LoginPage extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
-                  // Sign In Button
                   SizedBox(
                     width: double.infinity,
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigasi ke Halaman Utama tanpa autentikasi nyata
+
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -160,7 +162,8 @@ class LoginPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0),
                         ),
-                        elevation: 0, // Neumorphic style aslinya rendah
+                        elevation: 0, 
+
                       ),
                       child: Text(
                         'Sign In',
@@ -175,7 +178,6 @@ class LoginPage extends StatelessWidget {
 
                   const SizedBox(height: 48),
 
-                  // Pemisah: Or continue with
                   Row(
                     children: [
                       const Expanded(child: Divider(color: Colors.black12)),
@@ -195,7 +197,6 @@ class LoginPage extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
-                  // Social Sign-In Buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -205,7 +206,8 @@ class LoginPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.red, // Atau warna Google
+                            color: Colors.red, 
+
                           ),
                         ),
                         label: 'Google',
@@ -216,15 +218,16 @@ class LoginPage extends StatelessWidget {
                           Icons.apple,
                           color: Colors.black,
                           size: 24,
-                        ), // Ikon Apple Material
+                        ), 
+
                         label: 'Apple',
                         fillColor: inputPurpleFill,
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 60), // Ruang sebelum footer
-                  // Footer: Don't have an account? Create Account
+                  const SizedBox(height: 60), 
+
                   Center(
                     child: RichText(
                       text: TextSpan(
@@ -256,7 +259,6 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// Widget Kustom untuk Tombol Media Sosial (Gaya Pudar/Pill)
 class _SocialSignButton extends StatelessWidget {
   final Widget logo;
   final String label;
@@ -273,7 +275,8 @@ class _SocialSignButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width:
-          (MediaQuery.of(context).size.width - 64) / 2.3, // Lebar yang serasi
+          (MediaQuery.of(context).size.width - 64) / 2.3, 
+
       decoration: BoxDecoration(
         color: fillColor,
         borderRadius: BorderRadius.circular(50.0),
@@ -306,3 +309,4 @@ class _SocialSignButton extends StatelessWidget {
     );
   }
 }
+

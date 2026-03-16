@@ -21,7 +21,6 @@ class _ServiceListPageState extends State<ServiceListPage> {
   final Color tagBgColor = const Color(0xFF90F0D6);
   final Color tagTextColor = const Color(0xFF0F765E);
 
-  // Data sekarang menggunakan Object ServiceProvider, bukan Map lagi
   final List<ServiceProvider> dummyDevelopers = [
     ServiceProvider(
       id: '1',
@@ -232,7 +231,7 @@ class _ServiceListPageState extends State<ServiceListPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigasi ke Detail Page yang sudah aman
+
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceDetailPage(provider: dev)));
                   },
                   style: ElevatedButton.styleFrom(

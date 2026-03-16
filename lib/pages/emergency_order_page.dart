@@ -10,7 +10,7 @@ class EmergencyOrderPage extends StatefulWidget {
 
 class _EmergencyOrderPageState extends State<EmergencyOrderPage> {
   String selectedService = "Tukang Ledeng";
-  
+
   final List<Map<String, dynamic>> services = [
     {"name": "Tukang Ledeng", "icon": Icons.plumbing},
     {"name": "Ahli Kunci", "icon": Icons.vpn_key},
@@ -24,7 +24,7 @@ class _EmergencyOrderPageState extends State<EmergencyOrderPage> {
       appBar: AppBar(title: const Text("Panggil Jasa Darurat")),
       body: Column(
         children: [
-          // Simulasi Map / Lokasi Keberadaan
+
           Container(
             height: 250,
             width: double.infinity,
@@ -43,8 +43,7 @@ class _EmergencyOrderPageState extends State<EmergencyOrderPage> {
             padding: EdgeInsets.all(16.0),
             child: Text("Pilih Jasa yang Dibutuhkan:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
-          // Pilihan Jasa (Horizontal atau Grid)
-          // Ganti bagian ListView.builder di emergency_order_page.dart
+
 Expanded(
   child: ListView.builder(
     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -87,12 +86,12 @@ Expanded(
   ),
 ),
 
-// Update Button Panggil di bawah
 Container(
   padding: const EdgeInsets.all(24),
   child: ElevatedButton(
     style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF735BF2), // Pakai primaryPurple
+      backgroundColor: const Color(0xFF735BF2), 
+
       minimumSize: const Size(double.infinity, 60),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 0,
@@ -102,7 +101,7 @@ Container(
     context: context,
     barrierDismissible: false,
     builder: (context) => const SearchRadarDialog(),
-    
+
   );
 },
     child: Text(
@@ -115,7 +114,7 @@ Container(
       ),
     );
   }
-  
+
 }
 class SearchRadarDialog extends StatefulWidget {
   const SearchRadarDialog({super.key});
@@ -134,10 +133,10 @@ class _SearchRadarDialogState extends State<SearchRadarDialog> with SingleTicker
       vsync: this,
       duration: const Duration(seconds: 2),
     )..repeat();
-    
+
    Future.delayed(const Duration(seconds: 3), () {
   if (!mounted) return;
-  Navigator.pop(context); // Tutup radar
+  Navigator.pop(context); 
 
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -147,9 +146,11 @@ class _SearchRadarDialogState extends State<SearchRadarDialog> with SingleTicker
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       backgroundColor: const Color(0xFF735BF2),
-      behavior: SnackBarBehavior.floating, // Wajib floating
+      behavior: SnackBarBehavior.floating, 
+
       margin: EdgeInsets.only(
-        bottom: MediaQuery.of(context).size.height - 150, // Muncul di atas
+        bottom: MediaQuery.of(context).size.height - 150, 
+
         left: 20,
         right: 20,
       ),

@@ -1,8 +1,7 @@
-// lib/pages/my_orders_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'home_page.dart'; // Untuk navigasi bottom bar
+import 'home_page.dart'; 
+
 import 'chat_page.dart';
 import 'profile_page.dart';
 
@@ -16,16 +15,14 @@ class MyOrdersPage extends StatefulWidget {
 class _MyOrdersPageState extends State<MyOrdersPage> {
   int _selectedTab = 0;
 
-  // --- GETTER DINAMIS ---
-  // Fungsi ini otomatis nge-refresh warna setiap halaman berubah
   bool get isDark => Theme.of(context).brightness == Brightness.dark;
-  
+
   Color get bgPurple => Theme.of(context).scaffoldBackgroundColor;
   Color get primaryPurple => Theme.of(context).primaryColor;
   Color get lightPurple => Theme.of(context).cardColor;
   Color get textDark => Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1A1A1A);
   Color get textGray => Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF8A8A8A);
-  
+
   Color get sessionCardBg => isDark ? const Color(0xFF2C2C2C) : const Color(0xFFF6F4FF);
   Color get mintGreen => isDark ? const Color(0xFF1A3D36) : const Color(0xFF90F0D6);
   Color get successGreen => isDark ? const Color(0xFF67F5D1) : const Color(0xFF0F765E);
@@ -33,12 +30,14 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgPurple, // Otomatis
+      backgroundColor: bgPurple, 
+
       appBar: AppBar(
         backgroundColor: bgPurple,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: textDark), // Ikut textDark (hitam/putih)
+          icon: Icon(Icons.menu, color: textDark), 
+
           onPressed: () {},
         ),
         title: Text('My Orders', style: GoogleFonts.poppins(color: textDark, fontWeight: FontWeight.bold, fontSize: 18)),
@@ -53,7 +52,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
           children: [
             _buildCustomTab(),
             const SizedBox(height: 32),
-            
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -63,16 +62,16 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
               ],
             ),
             const SizedBox(height: 16),
-            
+
             _selectedTab == 0 ? _buildCurrentSessionCard() : _buildEmptyState('No active sessions right now.'),
-            
+
             const SizedBox(height: 40),
-            
+
             Text('Recent Sessions', style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold, color: textDark)),
             const SizedBox(height: 16),
-            
+
             _buildRecentSessionCard(),
-            
+
             const SizedBox(height: 16),
             _buildPlaceholderCard(),
           ],
@@ -103,8 +102,6 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
       ),
     );
   }
-
-  // --- WIDGET BUILDERS ---
 
   Widget _buildCustomTab() {
     return Container(
@@ -151,7 +148,8 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: lightPurple, // Diubah jadi dinamis (putih/gelap)
+        color: lightPurple, 
+
         borderRadius: BorderRadius.circular(32),
         boxShadow: [BoxShadow(color: primaryPurple.withOpacity(0.08), blurRadius: 30, offset: const Offset(0, 15))],
       ),
@@ -217,8 +215,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             ],
           ),
           const SizedBox(height: 24),
-          
-          // Join Session Button
+
 Row(
   children: [
     Expanded(
@@ -244,9 +241,10 @@ Row(
       ),
     ),
     const SizedBox(width: 12),
-    // TOMBOL CHAT MINI
+
     Container(
-      height: 56, // Menyamakan tinggi dengan tombol Join Session
+      height: 56, 
+
       width: 56,
       decoration: BoxDecoration(
         border: Border.all(color: primaryPurple, width: 2),
@@ -267,7 +265,7 @@ Row(
   ],
 )        ],
       ),
-      
+
     );
   }
 

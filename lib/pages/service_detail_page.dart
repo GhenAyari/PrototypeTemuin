@@ -34,7 +34,7 @@ class ServiceDetailPage extends StatelessWidget {
               onPressed: () {})
         ],
       ),
-      // BODY SEKARANG BERSIH DARI TOMBOL MELAYANG
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 30),
         child: Column(
@@ -78,7 +78,7 @@ class ServiceDetailPage extends StatelessWidget {
           ],
         ),
       ),
-      // TOMBOL CHAT & BOOK SEKARANG ADA DI SINI (TIDAK DOBEL)
+
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -132,7 +132,6 @@ class ServiceDetailPage extends StatelessWidget {
     );
   }
 
-  // --- Widget Builders tetap sama ---
   Widget _buildSectionTitle(String title) {
     return Text(title,
         style: GoogleFonts.poppins(
