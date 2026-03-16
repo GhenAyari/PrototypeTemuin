@@ -7,6 +7,8 @@ class ServiceProvider {
   final int price;
   final String description;
   final String avatarUrl;
+  final bool isTopRated;
+  final List<String> tags;
 
   ServiceProvider({
     required this.id,
@@ -17,5 +19,7 @@ class ServiceProvider {
     required this.price,
     required this.description,
     required this.avatarUrl,
+    this.isTopRated = false,
+    this.tags = const [],
   });
 }
