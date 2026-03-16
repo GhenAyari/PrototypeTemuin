@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/service_provider.dart';
 import 'home_page.dart';
+import 'my_orders_page.dart';
 
 class OrderConfirmedPage extends StatelessWidget {
   final ServiceProvider provider;
@@ -35,9 +36,19 @@ class OrderConfirmedPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Temuin', style: GoogleFonts.poppins(color: textDark, fontWeight: FontWeight.w600, fontSize: 18)),
+        title: Text(
+          'Temuin',
+          style: GoogleFonts.poppins(
+            color: textDark,
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+        ),
         actions: [
-          IconButton(icon: Icon(Icons.notifications, color: primaryPurple), onPressed: () {}),
+          IconButton(
+            icon: Icon(Icons.notifications, color: primaryPurple),
+            onPressed: () {},
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -50,61 +61,114 @@ class OrderConfirmedPage extends StatelessWidget {
             Container(
               width: 100,
               height: 100,
-              decoration: BoxDecoration(color: successGreen, shape: BoxShape.circle, boxShadow: [
-                BoxShadow(color: successGreen.withOpacity(0.2), blurRadius: 20, offset: const Offset(0, 10))
-              ]),
+              decoration: BoxDecoration(
+                color: successGreen,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: successGreen.withOpacity(0.2),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
               child: const Icon(Icons.check, color: Colors.white, size: 50),
             ),
             const SizedBox(height: 32),
-            
+
             // Text Header
-            Text('Booking Confirmed!', style: GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold, color: textDark)),
+            Text(
+              'Booking Confirmed!',
+              style: GoogleFonts.poppins(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: textDark,
+              ),
+            ),
             const SizedBox(height: 12),
             Text(
               'Your professional session has been secured. Get ready for an exceptional experience.',
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(color: textGray, fontSize: 14, height: 1.5),
+              style: GoogleFonts.poppins(
+                color: textGray,
+                fontSize: 14,
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 24),
-            
+
             // Order ID Pill
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              decoration: BoxDecoration(color: lightPurple, borderRadius: BorderRadius.circular(20)),
+              decoration: BoxDecoration(
+                color: lightPurple,
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: RichText(
                 text: TextSpan(
                   style: GoogleFonts.poppins(color: textGray, fontSize: 12),
                   children: [
                     const TextSpan(text: 'Order ID: '),
-                    TextSpan(text: 'TMN-88294-X', style: TextStyle(color: primaryPurple, fontWeight: FontWeight.bold)),
+                    TextSpan(
+                      text: 'TMN-88294-X',
+                      style: TextStyle(
+                        color: primaryPurple,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 40),
-            
+
             // Service Summary Card
             _buildServiceSummaryCard(),
             const SizedBox(height: 24),
-            
+
             // Help & Calendar Cards
-            _buildActionCard(Icons.help_outline, 'Need help?', 'Contact your provider or our 24/7 support atelier.'),
+            _buildActionCard(
+              Icons.help_outline,
+              'Need help?',
+              'Contact your provider or our 24/7 support atelier.',
+            ),
             const SizedBox(height: 16),
-            _buildActionCard(Icons.calendar_today, 'Add to Calendar', 'Sync this booking with Google or Apple Calendar.'),
+            _buildActionCard(
+              Icons.calendar_today,
+              'Add to Calendar',
+              'Sync this booking with Google or Apple Calendar.',
+            ),
             const SizedBox(height: 40),
-            
+
             // Buttons
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Pindah ke halaman My Orders
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyOrdersPage(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryPurple,
                   padding: const EdgeInsets.symmetric(vertical: 18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                   elevation: 0,
                 ),
-                child: Text('View My Orders', style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                child: Text(
+                  'View My Orders',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -122,10 +186,18 @@ class OrderConfirmedPage extends StatelessWidget {
                   backgroundColor: lightPurple,
                   foregroundColor: textDark,
                   padding: const EdgeInsets.symmetric(vertical: 18),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                   elevation: 0,
                 ),
-                child: Text('Back to Home', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Back to Home',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 40),
@@ -139,13 +211,22 @@ class OrderConfirmedPage extends StatelessWidget {
         selectedItemColor: primaryPurple,
         unselectedItemColor: Colors.grey.shade400,
         showUnselectedLabels: true,
-        selectedLabelStyle: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600),
+        selectedLabelStyle: GoogleFonts.poppins(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
         unselectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+          ),
         ],
       ),
     );
@@ -159,33 +240,74 @@ class OrderConfirmedPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(32),
-        boxShadow: [BoxShadow(color: primaryPurple.withOpacity(0.05), blurRadius: 24, offset: const Offset(0, 10))],
+        boxShadow: [
+          BoxShadow(
+            color: primaryPurple.withOpacity(0.05),
+            blurRadius: 24,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('SERVICE SUMMARY', style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: successGreen)),
+          Text(
+            'SERVICE SUMMARY',
+            style: GoogleFonts.poppins(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.5,
+              color: successGreen,
+            ),
+          ),
           const SizedBox(height: 20),
           Row(
             children: [
-              CircleAvatar(radius: 28, backgroundImage: NetworkImage(provider.avatarUrl)),
+              CircleAvatar(
+                radius: 28,
+                backgroundImage: NetworkImage(provider.avatarUrl),
+              ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Provider', style: GoogleFonts.poppins(fontSize: 12, color: textGray)),
-                    Text(provider.name, style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: textDark)),
-                    Text(provider.skill, style: GoogleFonts.poppins(fontSize: 12, color: primaryPurple)),
+                    Text(
+                      'Provider',
+                      style: GoogleFonts.poppins(fontSize: 12, color: textGray),
+                    ),
+                    Text(
+                      provider.name,
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: textDark,
+                      ),
+                    ),
+                    Text(
+                      provider.skill,
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: primaryPurple,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          _buildInfoRow(Icons.calendar_month, 'Date', 'October 24, 2024'), // Dummy date
+          _buildInfoRow(
+            Icons.calendar_month,
+            'Date',
+            'October 24, 2024',
+          ), // Dummy date
           const SizedBox(height: 16),
-          _buildInfoRow(Icons.schedule, 'Time', '10:30 AM - 11:30 AM'), // Dummy time
+          _buildInfoRow(
+            Icons.schedule,
+            'Time',
+            '10:30 AM - 11:30 AM',
+          ), // Dummy time
           const SizedBox(height: 24),
           const Divider(height: 1, thickness: 1),
           const SizedBox(height: 24),
@@ -196,27 +318,64 @@ class OrderConfirmedPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Total Payment', style: GoogleFonts.poppins(fontSize: 12, color: textGray)),
-                  Text('\$${totalAmount.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: textDark)),
+                  Text(
+                    'Total Payment',
+                    style: GoogleFonts.poppins(fontSize: 12, color: textGray),
+                  ),
+                  Text(
+                    '\$${totalAmount.toStringAsFixed(2)}',
+                    style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: textDark,
+                    ),
+                  ),
                 ],
               ),
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(color: mintGreen, borderRadius: BorderRadius.circular(16)),
-                    child: Text('PAID', style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: successGreen)),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: mintGreen,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      'PAID',
+                      style: GoogleFonts.poppins(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: successGreen,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(color: lightPurple, borderRadius: BorderRadius.circular(16)),
-                    child: Text('DIGITAL\nRECEIPT', textAlign: TextAlign.center, style: GoogleFonts.poppins(fontSize: 8, fontWeight: FontWeight.bold, color: primaryPurple)),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: lightPurple,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      'DIGITAL\nRECEIPT',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 8,
+                        fontWeight: FontWeight.bold,
+                        color: primaryPurple,
+                      ),
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -234,8 +393,18 @@ class OrderConfirmedPage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: GoogleFonts.poppins(fontSize: 12, color: textGray)),
-            Text(value, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: textDark)),
+            Text(
+              label,
+              style: GoogleFonts.poppins(fontSize: 12, color: textGray),
+            ),
+            Text(
+              value,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: textDark,
+              ),
+            ),
           ],
         ),
       ],
@@ -245,7 +414,10 @@ class OrderConfirmedPage extends StatelessWidget {
   Widget _buildActionCard(IconData icon, String title, String subtitle) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: lightPurple.withOpacity(0.5), borderRadius: BorderRadius.circular(24)),
+      decoration: BoxDecoration(
+        color: lightPurple.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(24),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -255,9 +427,23 @@ class OrderConfirmedPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold, color: textDark)),
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: textDark,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: GoogleFonts.poppins(fontSize: 12, color: textGray, height: 1.5)),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: textGray,
+                    height: 1.5,
+                  ),
+                ),
               ],
             ),
           ),

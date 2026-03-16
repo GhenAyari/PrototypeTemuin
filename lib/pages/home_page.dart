@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:temuin/pages/service_list_page.dart';
+import 'my_orders_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -84,10 +85,18 @@ class _HomePageState extends State<HomePage> {
       // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
+       onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
+
+          // TAMBAHKAN KODE INI DI SINI
+          if (index == 2) { 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyOrdersPage()),
+            );
+          }
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryPurple,
