@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'home_page.dart'; // Untuk navigasi bottom bar
+import 'chat_page.dart';
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({Key? key}) : super(key: key);
@@ -220,22 +221,55 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
           const SizedBox(height: 24),
           
           // Join Session Button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
-              label: Text('Join Session', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryPurple,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                elevation: 0,
-              ),
-            ),
-          )
-        ],
+Row(
+  children: [
+    Expanded(
+      child: ElevatedButton.icon(
+        onPressed: () {},
+        icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
+        label: Text(
+          'Join Session',
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryPurple,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          elevation: 0,
+        ),
       ),
+    ),
+    const SizedBox(width: 12),
+    // TOMBOL CHAT MINI
+    Container(
+      height: 56, // Menyamakan tinggi dengan tombol Join Session
+      width: 56,
+      decoration: BoxDecoration(
+        border: Border.all(color: primaryPurple, width: 2),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: IconButton(
+        icon: Icon(Icons.chat_bubble_outline, color: primaryPurple),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChatPage(providerName: "Marcus Thorne"),
+            ),
+          );
+        },
+      ),
+    ),
+  ],
+)        ],
+      ),
+      
     );
   }
 

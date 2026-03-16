@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:temuin/pages/service_list_page.dart';
 import 'my_orders_page.dart';
 import 'profile_page.dart';
+import 'emergency_order_page.dart';
+import 'search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -62,7 +64,70 @@ class _HomePageState extends State<HomePage> {
               _buildHeroText(),
               const SizedBox(height: 30),
               _buildSearchBar(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
+              GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => const EmergencyOrderPage())
+    );
+  },
+  child: Container(
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      // Pakai gradasi dari ungu ke pink tua supaya eye-catching tapi tetap estetik
+      gradient: const LinearGradient(
+        colors: [Color(0xFF735BF2), Color(0xFF9B51E0)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(24),
+      boxShadow: [
+        BoxShadow(
+          color: const Color(0xFF735BF2).withOpacity(0.3),
+          blurRadius: 15,
+          offset: const Offset(0, 8),
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.flash_on_rounded, color: Colors.white, size: 28),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Need Help Fast?",
+                style: GoogleFonts.poppins(
+                  color: Colors.white, 
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                "Emergency service at your door",
+                style: GoogleFonts.poppins(
+                  color: Colors.white.withOpacity(0.8),
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 18),
+      ],
+    ),
+  ),
+),
               _buildSectionTitle('EXPLORE', 'Specialized Talent'),
               const SizedBox(height: 16),
               _buildSpecializedTalent(),
@@ -92,6 +157,12 @@ class _HomePageState extends State<HomePage> {
           });
 
           // TAMBAHKAN KODE INI DI SINI
+          if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SearchPage()),
+      );
+    }
           if (index == 2) {
             Navigator.push(
               context,
@@ -445,7 +516,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Text(
-                    'View Profile',
+                    'Explore All',
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
