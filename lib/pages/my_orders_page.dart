@@ -2,8 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
 import 'home_page.dart'; // Untuk navigasi bottom bar
 import 'chat_page.dart';
+=======
+import 'home_page.dart';
+import 'profile_page.dart';
+>>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({Key? key}) : super(key: key);
@@ -13,27 +18,31 @@ class MyOrdersPage extends StatefulWidget {
 }
 
 class _MyOrdersPageState extends State<MyOrdersPage> {
-  // State untuk toggle tab (0 = Active, 1 = Past)
   int _selectedTab = 0;
 
-  // Definisi Warna
-  final Color bgPurple = const Color(0xFFFBFaff);
-  final Color primaryPurple = const Color(0xFF533DEC);
-  final Color lightPurple = const Color(0xFFEDE8FF);
-  final Color textDark = const Color(0xFF2B2052);
-  final Color textGray = const Color(0xFF8A8A8A);
-  final Color successGreen = const Color(0xFF0F765E);
-  final Color mintGreen = const Color(0xFF90F0D6);
+  // --- GETTER DINAMIS ---
+  // Fungsi ini otomatis nge-refresh warna setiap halaman berubah
+  bool get isDark => Theme.of(context).brightness == Brightness.dark;
+  
+  Color get bgPurple => Theme.of(context).scaffoldBackgroundColor;
+  Color get primaryPurple => Theme.of(context).primaryColor;
+  Color get lightPurple => Theme.of(context).cardColor;
+  Color get textDark => Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1A1A1A);
+  Color get textGray => Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF8A8A8A);
+  
+  Color get sessionCardBg => isDark ? const Color(0xFF2C2C2C) : const Color(0xFFF6F4FF);
+  Color get mintGreen => isDark ? const Color(0xFF1A3D36) : const Color(0xFF90F0D6);
+  Color get successGreen => isDark ? const Color(0xFF67F5D1) : const Color(0xFF0F765E);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgPurple,
+      backgroundColor: bgPurple, // Otomatis
       appBar: AppBar(
         backgroundColor: bgPurple,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black87), // Hamburger menu sesuai desain
+          icon: Icon(Icons.menu, color: textDark), // Ikut textDark (hitam/putih)
           onPressed: () {},
         ),
         title: Text('My Orders', style: GoogleFonts.poppins(color: textDark, fontWeight: FontWeight.bold, fontSize: 18)),
@@ -49,7 +58,6 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             _buildCustomTab(),
             const SizedBox(height: 32),
             
-            // Header Current Session
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -60,37 +68,34 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             ),
             const SizedBox(height: 16),
             
-            // Active Session Card
             _selectedTab == 0 ? _buildCurrentSessionCard() : _buildEmptyState('No active sessions right now.'),
             
             const SizedBox(height: 40),
             
-            // Header Recent Sessions
             Text('Recent Sessions', style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold, color: textDark)),
             const SizedBox(height: 16),
             
-            // Past Session Card
             _buildRecentSessionCard(),
             
             const SizedBox(height: 16),
-            // Shimmer / Placeholder effect di paling bawah
             _buildPlaceholderCard(),
           ],
         ),
       ),
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2, // Fokus di tab Orders
+        currentIndex: 2, 
         type: BottomNavigationBarType.fixed,
+        backgroundColor: bgPurple, 
         selectedItemColor: primaryPurple,
-        unselectedItemColor: Colors.grey.shade400,
+        unselectedItemColor: textGray,
         showUnselectedLabels: true,
         selectedLabelStyle: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600),
         unselectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
         onTap: (index) {
           if (index == 0) {
-            // Jika klik Home, kembali ke halaman utama
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+          } else if (index == 3) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
           }
         },
         items: const [
@@ -108,7 +113,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   Widget _buildCustomTab() {
     return Container(
       padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(color: lightPurple.withOpacity(0.5), borderRadius: BorderRadius.circular(30)),
+      decoration: BoxDecoration(color: isDark ? const Color(0xFF1E1E1E) : const Color(0xFFEDE8FF), borderRadius: BorderRadius.circular(30)),
       child: Row(
         children: [
           Expanded(child: _buildTabButton(0, 'Active')),
@@ -129,7 +134,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: isActive ? Colors.white : Colors.transparent,
+          color: isActive ? (isDark ? const Color(0xFF333333) : Colors.white) : Colors.transparent,
           borderRadius: BorderRadius.circular(26),
           boxShadow: isActive ? [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))] : [],
         ),
@@ -150,13 +155,12 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: lightPurple, // Diubah jadi dinamis (putih/gelap)
         borderRadius: BorderRadius.circular(32),
         boxShadow: [BoxShadow(color: primaryPurple.withOpacity(0.08), blurRadius: 30, offset: const Offset(0, 15))],
       ),
       child: Column(
         children: [
-          // Profil Header
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -178,19 +182,17 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(color: mintGreen, borderRadius: BorderRadius.circular(12)),
-                child: Text('LIVE', style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.bold, color: successGreen)),
+                child: Text('LIVE', style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.bold, color: isDark ? const Color(0xFF0F765E) : successGreen)),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          
-          // Date & Time Pills
           Row(
             children: [
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: const Color(0xFFF6F4FF), borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration(color: sessionCardBg, borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -205,7 +207,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: const Color(0xFFF6F4FF), borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration(color: sessionCardBg, borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -219,6 +221,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             ],
           ),
           const SizedBox(height: 24),
+<<<<<<< HEAD
           
           // Join Session Button
 Row(
@@ -243,6 +246,23 @@ Row(
           ),
           elevation: 0,
         ),
+=======
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
+              label: Text('Join Session', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryPurple,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                elevation: 0,
+              ),
+            ),
+          )
+        ],
+>>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
       ),
     ),
     const SizedBox(width: 12),
@@ -276,7 +296,7 @@ Row(
   Widget _buildRecentSessionCard() {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: const Color(0xFFF6F4FF), borderRadius: BorderRadius.circular(28)),
+      decoration: BoxDecoration(color: sessionCardBg, borderRadius: BorderRadius.circular(28)),
       child: Column(
         children: [
           Row(
@@ -312,7 +332,7 @@ Row(
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: lightPurple,
+                  backgroundColor: isDark ? const Color(0xFF1E1E1E) : const Color(0xFFEDE8FF),
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -329,17 +349,17 @@ Row(
   Widget _buildPlaceholderCard() {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: const Color(0xFFF6F4FF).withOpacity(0.5), borderRadius: BorderRadius.circular(28)),
+      decoration: BoxDecoration(color: sessionCardBg.withOpacity(0.5), borderRadius: BorderRadius.circular(28)),
       child: Row(
         children: [
-          Container(width: 48, height: 48, decoration: BoxDecoration(color: lightPurple.withOpacity(0.5), shape: BoxShape.circle)),
+          Container(width: 48, height: 48, decoration: BoxDecoration(color: isDark ? const Color(0xFF333333) : const Color(0xFFEDE8FF), shape: BoxShape.circle)),
           const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(width: 120, height: 12, decoration: BoxDecoration(color: lightPurple.withOpacity(0.5), borderRadius: BorderRadius.circular(6))),
+              Container(width: 120, height: 12, decoration: BoxDecoration(color: isDark ? const Color(0xFF333333) : const Color(0xFFEDE8FF), borderRadius: BorderRadius.circular(6))),
               const SizedBox(height: 8),
-              Container(width: 80, height: 10, decoration: BoxDecoration(color: lightPurple.withOpacity(0.5), borderRadius: BorderRadius.circular(5))),
+              Container(width: 80, height: 10, decoration: BoxDecoration(color: isDark ? const Color(0xFF333333) : const Color(0xFFEDE8FF), borderRadius: BorderRadius.circular(5))),
             ],
           ),
         ],
@@ -351,7 +371,7 @@ Row(
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(color: lightPurple.withOpacity(0.3), borderRadius: BorderRadius.circular(24)),
+      decoration: BoxDecoration(color: isDark ? const Color(0xFF2C2C2C) : const Color(0xFFEDE8FF), borderRadius: BorderRadius.circular(24)),
       child: Center(
         child: Text(message, style: GoogleFonts.poppins(color: textGray, fontStyle: FontStyle.italic)),
       ),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:temuin/main.dart'; // Pastikan ini benar (mengarah ke file main.dart yang berisi themeNotifier)
 import 'package:temuin/pages/service_list_page.dart';
 import 'my_orders_page.dart';
 import 'profile_page.dart';
@@ -18,22 +19,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  // Warna-warna utama dari desain
-  final Color bgPurple = const Color(0xFFFBFaff);
-  final Color primaryPurple = const Color(0xFF735BF2);
-  final Color lightPurple = const Color(0xFFEDE8FF);
-  final Color textDark = const Color(0xFF1A1A1A);
-  final Color textGray = const Color(0xFF8A8A8A);
+  // HAPUS SEMUA DEKLARASI WARNA DI SINI
 
   @override
   Widget build(BuildContext context) {
+    // 1. PINDAHKAN SEMUA VARIABEL WARNA KE DALAM FUNGSI BUILD
+    // --- AMBIL WARNA OTOMATIS DARI main.dart ---
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    final Color bgPurple = Theme.of(context).scaffoldBackgroundColor;
+    final Color primaryPurple = Theme.of(context).primaryColor;
+    final Color lightPurple = Theme.of(context).cardColor;
+    
+    // Pakai '??' (fallback) supaya Flutter gak protes soal Null Safety
+    final Color textDark = Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1A1A1A);
+    final Color textGray = Theme.of(context).textTheme.bodyMedium?.color ?? const Color(0xFF8A8A8A);
+
     return Scaffold(
       backgroundColor: bgPurple,
       appBar: AppBar(
         backgroundColor: bgPurple,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
+          icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.black87),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -41,12 +49,24 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'Temuin',
           style: GoogleFonts.poppins(
-            color: textDark,
+            color: textDark, // Menggunakan warna dinamis
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
         ),
         actions: [
+          IconButton(
+            icon: Icon(
+              isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+              color: primaryPurple,
+            ),
+            onPressed: () {
+              // Ganti nilai notifier
+              themeNotifier.value = isDark ? ThemeMode.light : ThemeMode.dark;
+              // Panggil setState agar fungsi build (dan perhitungan warna) dijalankan ulang
+              setState(() {}); 
+            },
+          ),
           IconButton(
             icon: Icon(Icons.notifications, color: primaryPurple),
             onPressed: () {},
@@ -61,8 +81,10 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              _buildHeroText(),
+              // PENTING: Kamu harus mengirim warna dinamis ke dalam fungsi-fungsi builder ini
+              _buildHeroText(textDark, primaryPurple),
               const SizedBox(height: 30),
+<<<<<<< HEAD
               _buildSearchBar(),
               const SizedBox(height: 20),
               GestureDetector(
@@ -129,20 +151,27 @@ class _HomePageState extends State<HomePage> {
   ),
 ),
               _buildSectionTitle('EXPLORE', 'Specialized Talent'),
-              const SizedBox(height: 16),
-              _buildSpecializedTalent(),
+=======
+              _buildSearchBar(lightPurple),
               const SizedBox(height: 40),
-              _buildSectionTitle('HANDPICKED', 'Featured Providers'),
+              _buildSectionTitle('EXPLORE', 'Specialized Talent', textDark, primaryPurple),
+>>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
               const SizedBox(height: 16),
-              _buildFeaturedProviders(),
+              _buildSpecializedTalent(lightPurple, primaryPurple, textGray),
+              const SizedBox(height: 40),
+              _buildSectionTitle('HANDPICKED', 'Featured Providers', textDark, primaryPurple),
+              const SizedBox(height: 16),
+              _buildFeaturedProviders(lightPurple, primaryPurple, textGray, textDark),
               const SizedBox(height: 40),
               _buildSectionTitle(
                 'TRENDING',
                 'Popular Services',
+                textDark,
+                primaryPurple,
                 showExploreAll: true,
               ),
               const SizedBox(height: 16),
-              _buildPopularServices(),
+              _buildPopularServices(textDark, textGray),
               const SizedBox(height: 40), // Spacing bawah
             ],
           ),
@@ -156,6 +185,7 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
 
+<<<<<<< HEAD
           // TAMBAHKAN KODE INI DI SINI
           if (index == 1) {
       Navigator.push(
@@ -163,22 +193,24 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(builder: (context) => const SearchPage()),
       );
     }
+=======
+>>>>>>> 8ec6fc91a1f6735401c68a08f769ffeafd884be5
           if (index == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MyOrdersPage()),
             );
-          }
-          else if (index == 3) { // Tab Profile (Logo Paling Kanan)
+          } else if (index == 3) {
             Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => const ProfilePage())
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
             );
           }
         },
         type: BottomNavigationBarType.fixed,
+        backgroundColor: bgPurple, // Ikuti warna background Scaffold
         selectedItemColor: primaryPurple,
-        unselectedItemColor: Colors.grey.shade400,
+        unselectedItemColor: textGray,
         showUnselectedLabels: true,
         selectedLabelStyle: GoogleFonts.poppins(
           fontSize: 12,
@@ -202,8 +234,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   // --- WIDGET BUILDERS UNTUK SETIAP BAGIAN ---
+  // Parameter fungsi telah diperbarui untuk menerima warna dinamis
 
-  Widget _buildHeroText() {
+  Widget _buildHeroText(Color textDark, Color primaryPurple) {
     return RichText(
       text: TextSpan(
         style: GoogleFonts.poppins(
@@ -224,7 +257,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(Color lightPurple) {
     return Container(
       decoration: BoxDecoration(
         color: lightPurple,
@@ -244,7 +277,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildSectionTitle(
     String overline,
-    String title, {
+    String title,
+    Color textDark,
+    Color primaryPurple, {
     bool showExploreAll = false,
   }) {
     return Column(
@@ -274,7 +309,6 @@ class _HomePageState extends State<HomePage> {
             ),
             if (showExploreAll)
               GestureDetector(
-                // Tambahkan pembungkus klik
                 onTap: () {
                   Navigator.push(
                     context,
@@ -294,24 +328,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-            Text(
-              'Explore All',
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: primaryPurple,
-              ),
-            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildSpecializedTalent() {
+  Widget _buildSpecializedTalent(Color lightPurple, Color primaryPurple, Color textGray) {
     return Row(
       children: [
-        // KOTAK PERTAMA (Developers)
         Expanded(
           child: InkWell(
             onTap: () {
@@ -349,12 +374,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ), // Penutup Expanded Pertama
-
-        const SizedBox(
-          width: 16,
-        ), // Jarak antar kotak (Berada di luar Expanded)
-        // KOTAK KEDUA (Designers)
+        ),
+        const SizedBox(width: 16),
         Expanded(
           child: InkWell(
             onTap: () {
@@ -392,19 +413,19 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ), // Penutup Expanded Kedua
+        ),
       ],
     );
   }
 
-  Widget _buildFeaturedProviders() {
+  Widget _buildFeaturedProviders(Color lightPurple, Color primaryPurple, Color textGray, Color textDark) {
     return Column(
       children: [
         // Card 1: Marcus Thorne (Top Rated)
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: lightPurple, // Diubah agar mengikuti tema
             borderRadius: BorderRadius.circular(32),
             boxShadow: [
               BoxShadow(
@@ -444,6 +465,7 @@ class _HomePageState extends State<HomePage> {
                         style: GoogleFonts.poppins(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
+                          color: Colors.teal.shade900, // Tambahkan warna agar kontras di dark mode
                         ),
                       ),
                     ),
@@ -457,7 +479,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 4),
                   Text(
                     '4.9',
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: textDark),
                   ),
                   Text(
                     ' (124 reviews)',
@@ -471,6 +493,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.poppins(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                  color: textDark,
                 ),
               ),
               const SizedBox(height: 4),
@@ -493,12 +516,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 20),
-              // Di dalam _buildFeaturedProviders, pada bagian ElevatedButton Marcus Thorne:
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigasi ke halaman list jasa sebagai contoh
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -555,6 +576,7 @@ class _HomePageState extends State<HomePage> {
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: textDark,
                         ),
                       ),
                       Text(
@@ -579,6 +601,7 @@ class _HomePageState extends State<HomePage> {
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        color: textDark,
                       ),
                     ),
                     Text(
@@ -595,6 +618,7 @@ class _HomePageState extends State<HomePage> {
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
+                            color: textDark,
                           ),
                         ),
                       ],
@@ -608,8 +632,8 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: textDark,
+                    backgroundColor: textDark == Colors.white ? const Color(0xFF2C2C2C) : Colors.white, // Adaptasi warna tombol
+                    foregroundColor: textDark == Colors.white ? Colors.white : const Color(0xFF1A1A1A),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -633,6 +657,9 @@ class _HomePageState extends State<HomePage> {
           'Cloud Consultant',
           '4.8',
           'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100',
+          lightPurple,
+          textDark,
+          textGray
         ),
         const SizedBox(height: 12),
         _buildSmallProviderCard(
@@ -640,6 +667,9 @@ class _HomePageState extends State<HomePage> {
           'Python Developer',
           '4.9',
           'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=100',
+          lightPurple,
+          textDark,
+          textGray
         ),
         const SizedBox(height: 16),
 
@@ -666,7 +696,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text(
                     'Become a Provider',
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: textDark),
                   ),
                   Text(
                     'Join our curated list',
@@ -704,11 +734,14 @@ class _HomePageState extends State<HomePage> {
     String role,
     String rating,
     String imageUrl,
+    Color lightPurple,
+    Color textDark,
+    Color textGray
   ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF6F4FF),
+        color: lightPurple, // Adaptasi warna card
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -721,7 +754,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   name,
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: textDark),
                 ),
                 Text(
                   role,
@@ -739,6 +772,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
+                  color: textDark,
                 ),
               ),
             ],
@@ -748,7 +782,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildPopularServices() {
+  Widget _buildPopularServices(Color textDark, Color textGray) {
     return Column(
       children: [
         _buildServiceCard(
@@ -756,6 +790,8 @@ class _HomePageState extends State<HomePage> {
           'ANALYTICS',
           'Custom Business Intelligence Dashboards',
           'Starting from \$450 • 3 day delivery',
+          textDark,
+          textGray
         ),
         const SizedBox(height: 24),
         _buildServiceCard(
@@ -763,6 +799,8 @@ class _HomePageState extends State<HomePage> {
           'BRANDING',
           'Minimalist Visual Identity Package',
           'Starting from \$800 • 1 week delivery',
+          textDark,
+          textGray
         ),
         const SizedBox(height: 24),
         _buildServiceCard(
@@ -770,6 +808,8 @@ class _HomePageState extends State<HomePage> {
           'SYSTEMS',
           'End-to-End Cloud Migration',
           'Starting from \$1,200 • 2 week delivery',
+          textDark,
+          textGray
         ),
       ],
     );
@@ -780,6 +820,8 @@ class _HomePageState extends State<HomePage> {
     String tag,
     String title,
     String subtitle,
+    Color textDark,
+    Color textGray
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -813,6 +855,7 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1,
+                    color: Colors.black, // Tetap hitam agar kontras dengan background putih transparan
                   ),
                 ),
               ),
@@ -822,7 +865,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 12),
         Text(
           title,
-          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: textDark),
         ),
         const SizedBox(height: 4),
         Text(
