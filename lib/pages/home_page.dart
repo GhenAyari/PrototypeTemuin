@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:temuin/pages/service_list_page.dart';
 import 'my_orders_page.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -85,16 +86,22 @@ class _HomePageState extends State<HomePage> {
       // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-       onTap: (index) {
+        onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
 
           // TAMBAHKAN KODE INI DI SINI
-          if (index == 2) { 
+          if (index == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MyOrdersPage()),
+            );
+          }
+          else if (index == 3) { // Tab Profile (Logo Paling Kanan)
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => const ProfilePage())
             );
           }
         },
@@ -231,90 +238,93 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildSpecializedTalent() {
-  return Row(
-    children: [
-      // KOTAK PERTAMA (Developers)
-      Expanded(
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ServiceListPage(categoryName: 'Web Developers'),
+    return Row(
+      children: [
+        // KOTAK PERTAMA (Developers)
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const ServiceListPage(categoryName: 'Web Developers'),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: lightPurple,
+                borderRadius: BorderRadius.circular(24),
               ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: lightPurple,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.code, color: primaryPurple, size: 28),
-                const SizedBox(height: 40),
-                Text(
-                  'Developers',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.code, color: primaryPurple, size: 28),
+                  const SizedBox(height: 40),
+                  Text(
+                    'Developers',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                Text(
-                  '2.4k available',
-                  style: GoogleFonts.poppins(color: textGray, fontSize: 12),
-                ),
-              ],
+                  Text(
+                    '2.4k available',
+                    style: GoogleFonts.poppins(color: textGray, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ), // Penutup Expanded Pertama
+        ), // Penutup Expanded Pertama
 
-      const SizedBox(width: 16), // Jarak antar kotak (Berada di luar Expanded)
-
-      // KOTAK KEDUA (Designers)
-      Expanded(
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ServiceListPage(categoryName: 'Designers'),
+        const SizedBox(
+          width: 16,
+        ), // Jarak antar kotak (Berada di luar Expanded)
+        // KOTAK KEDUA (Designers)
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const ServiceListPage(categoryName: 'Designers'),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: lightPurple,
+                borderRadius: BorderRadius.circular(24),
               ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: lightPurple,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.palette, color: primaryPurple, size: 28),
-                const SizedBox(height: 40),
-                Text(
-                  'Designers',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.palette, color: primaryPurple, size: 28),
+                  const SizedBox(height: 40),
+                  Text(
+                    'Designers',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                Text(
-                  '1.8k available',
-                  style: GoogleFonts.poppins(color: textGray, fontSize: 12),
-                ),
-              ],
+                  Text(
+                    '1.8k available',
+                    style: GoogleFonts.poppins(color: textGray, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ), // Penutup Expanded Kedua
-    ],
-  );
-}
+        ), // Penutup Expanded Kedua
+      ],
+    );
+  }
 
   Widget _buildFeaturedProviders() {
     return Column(
