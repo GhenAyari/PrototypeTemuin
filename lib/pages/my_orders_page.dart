@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'home_page.dart'; 
-
 import 'chat_page.dart';
 import 'profile_page.dart';
 
@@ -31,13 +30,11 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgPurple, 
-
       appBar: AppBar(
         backgroundColor: bgPurple,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.menu, color: textDark), 
-
           onPressed: () {},
         ),
         title: Text('My Orders', style: GoogleFonts.poppins(color: textDark, fontWeight: FontWeight.bold, fontSize: 18)),
@@ -63,14 +60,23 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             ),
             const SizedBox(height: 16),
 
-            _selectedTab == 0 ? _buildCurrentSessionCard() : _buildEmptyState('No active sessions right now.'),
+            // DI SINI GWE UBAH BIAR BISA TAMPILIN 2 CARD DI TAB ACTIVE
+            _selectedTab == 0 
+                ? Column(
+                    children: [
+                      _buildCurrentSessionCard(), // Card 1: Sedang Berlangsung (Marcus)
+                      const SizedBox(height: 20),
+                      _buildConfirmationCard(),   // Card 2: Menunggu Konfirmasi (Rudiniger)
+                    ],
+                  ) 
+                : _buildEmptyState('No active sessions right now.'),
 
             const SizedBox(height: 40),
 
             Text('Recent Sessions', style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.bold, color: textDark)),
             const SizedBox(height: 16),
 
-            _buildRecentSessionCard(),
+            _buildRecentSessionCard(), // Di dalam sini Rate Now-nya bakal manggil modal
 
             const SizedBox(height: 16),
             _buildPlaceholderCard(),
@@ -144,12 +150,12 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
     );
   }
 
+  // --- CARD 1: SESSION AKTIF MARCUS THORNE ---
   Widget _buildCurrentSessionCard() {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: lightPurple, 
-
         borderRadius: BorderRadius.circular(32),
         boxShadow: [BoxShadow(color: primaryPurple.withOpacity(0.08), blurRadius: 30, offset: const Offset(0, 15))],
       ),
@@ -215,60 +221,118 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             ],
           ),
           const SizedBox(height: 24),
-
-Row(
-  children: [
-    Expanded(
-      child: ElevatedButton.icon(
-        onPressed: () {},
-        icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
-        label: Text(
-          'Join Session',
-          style: GoogleFonts.poppins(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryPurple,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          elevation: 0,
-        ),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
+                  label: Text(
+                    'Join Session',
+                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryPurple,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                    elevation: 0,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Container(
+                height: 56, 
+                width: 56,
+                decoration: BoxDecoration(
+                  border: Border.all(color: primaryPurple, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.chat_bubble_outline, color: primaryPurple),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ChatPage(providerName: "Marcus Thorne")),
+                    );
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
       ),
-    ),
-    const SizedBox(width: 12),
-
-    Container(
-      height: 56, 
-
-      width: 56,
-      decoration: BoxDecoration(
-        border: Border.all(color: primaryPurple, width: 2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: IconButton(
-        icon: Icon(Icons.chat_bubble_outline, color: primaryPurple),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ChatPage(providerName: "Marcus Thorne"),
-            ),
-          );
-        },
-      ),
-    ),
-  ],
-)        ],
-      ),
-
     );
   }
 
+  // --- CARD 2: KONFIRMASI PENGIRIMAN RUDINIGER (BARU) ---
+  Widget _buildConfirmationCard() {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: lightPurple, 
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [BoxShadow(color: primaryPurple.withOpacity(0.08), blurRadius: 30, offset: const Offset(0, 15))],
+      ),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200'),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Rudiniger', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: textDark)),
+                    const SizedBox(height: 4),
+                    Text('Tukang Ledeng\nDarurat', style: GoogleFonts.poppins(fontSize: 13, color: textGray, height: 1.3)),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(color: Colors.orange.shade100, borderRadius: BorderRadius.circular(12)),
+                child: Text('KONFIRMASI', style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.orange.shade800)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          // Tombol Konfirmasi Selesai
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Pesanan diselesaikan! Dana diteruskan ke penyedia.", style: GoogleFonts.poppins()),
+                    backgroundColor: successGreen,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+              icon: const Icon(Icons.check_circle_outline, color: Colors.white, size: 20),
+              label: Text(
+                'Konfirmasi Pekerjaan Selesai',
+                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF0F765E), // successGreen solid
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                elevation: 0,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  // --- CARD 3: RECENT SESSION ELENA (PAST) ---
   Widget _buildRecentSessionCard() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -306,7 +370,7 @@ Row(
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => _showRatingModal(context), // MANGGIL MODAL RATING DI SINI
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isDark ? const Color(0xFF1E1E1E) : const Color(0xFFEDE8FF),
                   elevation: 0,
@@ -351,6 +415,106 @@ Row(
       child: Center(
         child: Text(message, style: GoogleFonts.poppins(color: textGray, fontStyle: FontStyle.italic)),
       ),
+    );
+  }
+
+  // --- MODAL RATING BINTANG & KOMENTAR (BARU) ---
+  void _showRatingModal(BuildContext context) {
+    int currentRating = 0; // State lokal buat nyimpen bintang
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Supaya modal bisa naik pas keyboard muncul
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+      ),
+      backgroundColor: bgPurple,
+      builder: (context) {
+        return StatefulBuilder( // StatefulBuilder buat ngerender ulang bintang pas diklik
+          builder: (BuildContext context, StateSetter setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom, 
+                left: 24, right: 24, top: 32
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Nilai Layanan', style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: textDark)),
+                  const SizedBox(height: 8),
+                  Text('Bagaimana pengalaman Anda dengan Elena?', style: GoogleFonts.poppins(fontSize: 12, color: textGray)),
+                  const SizedBox(height: 24),
+                  
+                  // Deretan Bintang Interaktif
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(5, (index) {
+                      return IconButton(
+                        icon: Icon(
+                          index < currentRating ? Icons.star : Icons.star_border,
+                          color: Colors.orange,
+                          size: 40,
+                        ),
+                        onPressed: () {
+                          setModalState(() {
+                            currentRating = index + 1; // Update bintang
+                          });
+                        },
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 24),
+                  
+                  // Kolom Komentar
+                  TextField(
+                    maxLines: 3,
+                    style: GoogleFonts.poppins(color: textDark),
+                    decoration: InputDecoration(
+                      hintText: 'Tulis komentar Anda (Opsional)...',
+                      hintStyle: GoogleFonts.poppins(color: textGray),
+                      filled: true,
+                      fillColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  
+                  // Tombol Kirim
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryPurple,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      ),
+                      onPressed: currentRating == 0 ? null : () { // Kalo belum kasih bintang, tombol mati
+                        Navigator.pop(context); // Tutup modal
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Terima kasih atas penilaian Anda!", style: GoogleFonts.poppins()),
+                            backgroundColor: primaryPurple,
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                      child: Text('Kirim Penilaian', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  const SizedBox(height: 32), 
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
